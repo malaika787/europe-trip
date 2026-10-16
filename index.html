@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Europe before the cruise</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#EDF1F3;
+  --surface:#FFFFFF;
+  --ink:#14213D;
+  --muted:#56617A;
+  --rule:#C9D1DB;
+  --london:#B3261E;
+  --paris:#2F5DA8;
+  --bcn:#C98A00;
+  --sea:#0F6E78;
+  --home:#56617A;
+  --tag-bg:#E3F1EC;
+  --tag-ink:#1D6B4F;
+  --todo-bg:#FBEFD5;
+  --todo-ink:#8A5A00;
+  --font:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  color-scheme: light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#0E1626;
+    --surface:#16213A;
+    --ink:#E8EDF5;
+    --muted:#A3AEC4;
+    --rule:#2C3A57;
+    --london:#F0736A;
+    --paris:#7FA6EC;
+    --bcn:#F2C048;
+    --sea:#4FC2CB;
+    --home:#A3AEC4;
+    --tag-bg:#173A30;
+    --tag-ink:#8FE0BF;
+    --todo-bg:#3D2F10;
+    --todo-ink:#F5CF73;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#0E1626;
+  --surface:#16213A;
+  --ink:#E8EDF5;
+  --muted:#A3AEC4;
+  --rule:#2C3A57;
+  --london:#F0736A;
+  --paris:#7FA6EC;
+  --bcn:#F2C048;
+  --sea:#4FC2CB;
+  --home:#A3AEC4;
+  --tag-bg:#173A30;
+  --tag-ink:#8FE0BF;
+  --todo-bg:#3D2F10;
+  --todo-ink:#F5CF73;
+  color-scheme: dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:1.125rem;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:46rem;margin:0 auto;padding:0 1.25rem}
+a{color:inherit}
+a:focus-visible,button:focus-visible{outline:3px solid var(--paris);outline-offset:3px;border-radius:4px}
+
+/* Hero */
+header.hero{padding:3.5rem 0 2.5rem}
+.for{color:var(--muted);font-size:1rem;margin:0 0 .75rem}
+h1{
+  font-size:clamp(2.6rem, 9vw, 4.6rem);
+  line-height:.95;
+  font-weight:800;
+  font-stretch:78%;
+  letter-spacing:-.02em;
+  margin:0 0 2.25rem;
+}
+.route{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.route li{position:relative;padding-top:1.4rem}
+.route li::before{
+  content:"";position:absolute;top:.45rem;left:0;right:0;height:6px;background:var(--c);
+}
+.route li::after{
+  content:"";position:absolute;top:0;left:0;width:20px;height:20px;border-radius:50%;
+  background:var(--surface);border:5px solid var(--c);
+}
+.route li:last-child::before{right:0;background:repeating-linear-gradient(90deg,var(--c) 0 10px,transparent 10px 16px)}
+.route .city{display:block;font-weight:700;font-size:1.05rem;line-height:1.2;margin-top:.35rem}
+.route .when{display:block;color:var(--muted);font-size:.9rem}
+.c-london{--c:var(--london)}
+.c-paris{--c:var(--paris)}
+.c-bcn{--c:var(--bcn)}
+.c-sea{--c:var(--sea)}
+.c-home{--c:var(--home)}
+@media (max-width:30rem){
+  .route .city{font-size:.95rem}
+  .route .when{font-size:.8rem}
+}
+
+/* Day nav */
+nav.days{
+  display:flex;gap:.5rem;overflow-x:auto;padding:.25rem 0 1rem;margin-bottom:1rem;
+  scrollbar-width:none;
+}
+nav.days::-webkit-scrollbar{display:none}
+nav.days a{
+  flex:0 0 auto;text-decoration:none;font-size:.95rem;font-weight:600;
+  padding:.45rem .85rem;border-radius:999px;border:2px solid var(--c);
+  color:var(--ink);background:var(--surface);
+}
+nav.days a.is-today{background:var(--c);color:var(--surface)}
+
+/* Days */
+.day{
+  position:relative;
+  padding:1.75rem 0 1.75rem 1.5rem;
+  border-left:6px solid var(--c);
+  margin-left:7px;
+}
+.day + .day{border-top:0}
+.day::before{
+  content:"";position:absolute;left:-13px;top:1.95rem;width:20px;height:20px;border-radius:50%;
+  background:var(--paper);border:5px solid var(--c);
+}
+.day-head{margin-bottom:1rem}
+.day h2{
+  margin:0;font-size:clamp(1.6rem,5vw,2.1rem);font-weight:800;font-stretch:85%;
+  letter-spacing:-.01em;line-height:1.1;
+}
+.day .place{margin:.2rem 0 0;color:var(--c);font-weight:700;font-size:1rem}
+.today-flag{
+  display:inline-block;margin-left:.5rem;vertical-align:middle;font-size:.85rem;font-weight:700;
+  background:var(--c);color:var(--surface);padding:.1rem .55rem;border-radius:999px;
+}
+.stops{list-style:none;margin:0;padding:0;background:var(--surface);border-radius:14px;overflow:hidden}
+.stop{display:grid;grid-template-columns:5.5rem 1fr;gap:1rem;padding:.9rem 1.1rem;border-top:1px solid var(--rule)}
+.stop:first-child{border-top:0}
+.time{font-weight:700;font-variant-numeric:tabular-nums;font-size:.98rem;color:var(--muted);padding-top:.1rem}
+.what{font-weight:650}
+.note{display:block;color:var(--muted);font-size:.97rem;font-weight:400;margin-top:.15rem}
+.tag{
+  display:inline-block;font-size:.8rem;font-weight:700;padding:.05rem .5rem;border-radius:6px;
+  margin-left:.4rem;vertical-align:.12em;background:var(--tag-bg);color:var(--tag-ink);
+}
+.tag.todo{background:var(--todo-bg);color:var(--todo-ink)}
+.tag.maybe{background:transparent;color:var(--muted);border:1.5px dashed var(--rule)}
+.stop.ship .what{color:var(--sea)}
+@media (max-width:30rem){
+  .stop{grid-template-columns:1fr;gap:.15rem}
+  .day{padding-left:1.1rem}
+}
+
+/* Sections */
+section.block{padding:2.5rem 0 1rem}
+section.block h2{font-size:clamp(1.6rem,5vw,2.1rem);font-weight:800;font-stretch:85%;margin:0 0 1rem;letter-spacing:-.01em}
+.bookings{display:grid;gap:.75rem}
+.bk{
+  background:var(--surface);border-radius:14px;padding:1rem 1.1rem;
+  border-left:6px solid var(--c);
+}
+.bk h3{margin:0 0 .25rem;font-size:1.08rem;font-weight:700}
+.bk p{margin:0;color:var(--muted);font-size:.98rem}
+.bk .codes{margin-top:.5rem;display:flex;flex-wrap:wrap;gap:.4rem 1.25rem;font-size:.98rem}
+.bk .codes b{font-variant-numeric:tabular-nums;letter-spacing:.04em;color:var(--ink)}
+.bk .codes span{color:var(--muted)}
+.tips{list-style:none;margin:0;padding:0;background:var(--surface);border-radius:14px;overflow:hidden}
+.tips li{padding:.9rem 1.1rem;border-top:1px solid var(--rule)}
+.tips li:first-child{border-top:0}
+.tips strong{font-weight:700}
+
+/* Food picks + map links */
+.opts{margin-top:.55rem}
+.opts summary{
+  cursor:pointer;display:inline-flex;align-items:center;gap:.45rem;list-style:none;
+  font-size:.92rem;font-weight:700;color:var(--c);
+  padding:.3rem .75rem;border:1.5px solid var(--c);border-radius:999px;
+}
+.opts summary::-webkit-details-marker{display:none}
+.opts summary::after{
+  content:"";width:.42rem;height:.42rem;border-right:2px solid currentColor;border-bottom:2px solid currentColor;
+  transform:translateY(-2px) rotate(45deg);transition:transform .2s ease;
+}
+.opts[open] summary::after{transform:translateY(2px) rotate(-135deg)}
+.opts ul{list-style:none;margin:.65rem 0 0;padding:0;display:grid;gap:.5rem}
+.opts li{padding:.65rem .85rem;border-radius:10px;background:var(--paper);font-weight:400}
+.opts li a{font-weight:700;text-decoration-thickness:1.5px;text-underline-offset:3px}
+.opts li span{display:block;color:var(--muted);font-size:.95rem;margin-top:.1rem}
+.map{font-size:.88rem;font-weight:600;color:var(--c);margin-left:.4rem;text-decoration-thickness:1.5px;text-underline-offset:3px}
+@media (prefers-reduced-motion: reduce){.opts summary::after{transition:none}}
+footer{padding:2.5rem 0 3rem;color:var(--muted);font-size:.95rem}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <p class="for">For Percy, Lynn, PJ and Malaika</p>
+  <h1>Europe before the cruise</h1>
+  <ol class="route" aria-label="Route">
+    <li class="c-london"><span class="city">London</span><span class="when">Oct 20–21</span></li>
+    <li class="c-paris"><span class="city">Paris</span><span class="when">Oct 22–23</span></li>
+    <li class="c-bcn"><span class="city">Barcelona</span><span class="when">Oct 24</span></li>
+    <li class="c-sea"><span class="city">Legend of the Seas</span><span class="when">Oct 25</span></li>
+  </ol>
+</header>
+
+<nav class="days" aria-label="Jump to a day">
+  <a href="#d19" class="c-home" data-date="2026-10-19">Mon 19</a>
+  <a href="#d20" class="c-london" data-date="2026-10-20">Tue 20</a>
+  <a href="#d21" class="c-london" data-date="2026-10-21">Wed 21</a>
+  <a href="#d22" class="c-paris" data-date="2026-10-22">Thu 22</a>
+  <a href="#d23" class="c-paris" data-date="2026-10-23">Fri 23</a>
+  <a href="#d24" class="c-bcn" data-date="2026-10-24">Sat 24</a>
+  <a href="#d25" class="c-sea" data-date="2026-10-25">Sun 25</a>
+  <a href="#bookings" class="c-home">Bookings</a>
+  <a href="#tips" class="c-home">Good to know</a>
+</nav>
+
+<main>
+
+<section class="day c-home" id="d19" data-date="2026-10-19">
+  <div class="day-head"><h2>Monday, October 19</h2><p class="place">Tampa to Boston to London</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">11:25am</span><span class="what">JetBlue 892, Tampa to Boston<span class="tag">Booked</span><span class="note">Lands 2:49pm</span></span></li>
+    <li class="stop"><span class="time">6:30pm</span><span class="what">JetBlue 1620, Boston to London Heathrow<span class="tag">Booked</span><span class="note">Overnight flight. Sleep as much as you can.</span></span></li>
+  </ol>
+</section>
+
+<section class="day c-london" id="d20" data-date="2026-10-20">
+  <div class="day-head"><h2>Tuesday, October 20</h2><p class="place">London</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">6:30am</span><span class="what">Land at Heathrow<span class="note">Elizabeth line into town. Tap a contactless card or phone at the gate, one per person.</span></span></li>
+    <li class="stop"><span class="time">Morning</span><span class="what">Drop bags at The July, Victoria<span class="note">They'll hold luggage until check-in. Grab breakfast nearby.</span><details class="opts"><summary>3 breakfast picks</summary><ul><li><a href="https://www.google.com/maps/search/?api=1&query=Regency+Cafe+Regency+Street+London" target="_blank" rel="noopener">Regency Café</a><span>Classic English café from 1946. A proper fry-up. About 15 minutes' walk.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=The+English+Rose+Cafe+London+Victoria" target="_blank" rel="noopener">The English Rose Café</a><span>Cosy vintage café near Buckingham Palace. Tea and fresh scones, on the way to the palace.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Bill%27s+Victoria+Cardinal+Place+London" target="_blank" rel="noopener">Bill's Victoria</a><span>Relaxed sit-down brunch near the station. Easy for the whole group.</span></li></ul></details></span></li>
+    <li class="stop"><span class="time">11:30am</span><span class="what">Buckingham Palace and St James's Park<a class="map" href="https://www.google.com/maps/search/?api=1&query=Buckingham+Palace+London" target="_blank" rel="noopener">Map</a><span class="note">10–15 minute walk from the hotel, then through the park toward the Abbey.</span></span></li>
+    <li class="stop"><span class="time">1:00pm</span><span class="what">Westminster Abbey<a class="map" href="https://www.google.com/maps/search/?api=1&query=Westminster+Abbey+London" target="_blank" rel="noopener">Map</a><span class="tag">Booked</span><span class="note">Enter between 1:00 and 1:30. Bring the printed tickets.</span></span></li>
+    <li class="stop"><span class="time">Afternoon</span><span class="what">National Gallery, Trafalgar Square<a class="map" href="https://www.google.com/maps/search/?api=1&query=National+Gallery+London" target="_blank" rel="noopener">Map</a><span class="note">Free, walk in. Van Gogh's Sunflowers, Monet, Turner.</span></span></li>
+    <li class="stop"><span class="time">Evening</span><span class="what">Early dinner, early night<span class="note">Stay close to the hotel tonight.</span><details class="opts"><summary>2 dinner picks</summary><ul><li><a href="https://www.google.com/maps/search/?api=1&query=The+Ivy+Victoria+Brasserie+London" target="_blank" rel="noopener">The Ivy Victoria Brasserie</a><span>Smart, comfortable brasserie. Classic British dishes.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Browns+Victoria+London" target="_blank" rel="noopener">Browns Victoria</a><span>Relaxed brasserie close to the station.</span></li></ul></details></span></li>
+  </ol>
+</section>
+
+<section class="day c-london" id="d21" data-date="2026-10-21">
+  <div class="day-head"><h2>Wednesday, October 21</h2><p class="place">London</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">9:00am</span><span class="what">Tower of London<a class="map" href="https://www.google.com/maps/search/?api=1&query=Tower+of+London" target="_blank" rel="noopener">Map</a><span class="tag">Booked</span><span class="note">All-day ticket. Arrive at opening and see the Crown Jewels first.</span></span></li>
+    <li class="stop"><span class="time">Midday</span><span class="what">Walk across Tower Bridge, lunch nearby<details class="opts"><summary>2 lunch picks</summary><ul><li><a href="https://www.google.com/maps/search/?api=1&query=St+Katharine+Docks+London" target="_blank" rel="noopener">St Katharine Docks</a><span>Restaurants around a little marina right next to the Tower. Seated and easy.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Borough+Market+London" target="_blank" rel="noopener">Borough Market</a><span>London's famous food market, about 15 minutes' walk over the bridge. Busy, with few seats.</span></li></ul></details></span></li>
+    <li class="stop"><span class="time">Afternoon</span><span class="what">British Museum<a class="map" href="https://www.google.com/maps/search/?api=1&query=British+Museum+London" target="_blank" rel="noopener">Map</a><span class="note">Free. Rosetta Stone, Egyptian mummies, Parthenon sculptures.</span></span></li>
+    <li class="stop"><span class="time">Evening</span><span class="what">Dinner in Covent Garden<details class="opts"><summary>3 dinner picks</summary><ul><li><a href="https://www.google.com/maps/search/?api=1&query=Dishoom+Covent+Garden+London" target="_blank" rel="noopener">Dishoom Covent Garden</a><span>Bombay-style café, hugely popular. Expect a wait.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Rules+restaurant+Maiden+Lane+London" target="_blank" rel="noopener">Rules</a><span>London's oldest restaurant. Classic British food. Book ahead.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Flat+Iron+Covent+Garden+London" target="_blank" rel="noopener">Flat Iron Covent Garden</a><span>Good, affordable steak and quick service.</span></li></ul></details></span></li>
+  </ol>
+</section>
+
+<section class="day c-paris" id="d22" data-date="2026-10-22">
+  <div class="day-head"><h2>Thursday, October 22</h2><p class="place">London to Paris</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">By 9:00am</span><span class="what">St Pancras station<a class="map" href="https://www.google.com/maps/search/?api=1&query=St+Pancras+International+London" target="_blank" rel="noopener">Map</a><span class="note">French passport control happens here, so arrive early.</span></span></li>
+    <li class="stop"><span class="time">10:30am</span><span class="what">Eurostar to Paris<span class="tag">Booked</span><span class="note">Arrives Gare du Nord early afternoon.</span></span></li>
+    <li class="stop"><span class="time">Afternoon</span><span class="what">Le Parisis, Paris Tour Eiffel<a class="map" href="https://www.google.com/maps/search/?api=1&query=Le+Parisis+Paris+Tour+Eiffel+102+Boulevard+de+Grenelle" target="_blank" rel="noopener">Map</a><span class="note">102 Boulevard de Grenelle. Check-in from 3pm; they'll hold bags.</span></span></li>
+    <li class="stop"><span class="time">Evening</span><span class="what">Trocadéro viewpoint<a class="map" href="https://www.google.com/maps/search/?api=1&query=Trocad%C3%A9ro+Paris" target="_blank" rel="noopener">Map</a><span class="note">The best view of the tower. It sparkles for 5 minutes on the hour after dark.</span></span></li>
+    <li class="stop"><span class="time">Evening</span><span class="what">Eiffel Tower or a Seine river cruise<span class="tag maybe">Decide that day</span><span class="note">Check the official site that morning for elevator tickets. The cruise is seated and easy to book same-day.</span></span></li>
+  </ol>
+</section>
+
+<section class="day c-paris" id="d23" data-date="2026-10-23">
+  <div class="day-head"><h2>Friday, October 23</h2><p class="place">Paris</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">9:30am</span><span class="what">Taxi from the hotel<span class="note">About 15–20 minutes to Orsay.</span></span></li>
+    <li class="stop"><span class="time">10:00am</span><span class="what">Musée d'Orsay<a class="map" href="https://www.google.com/maps/search/?api=1&query=Mus%C3%A9e+d%27Orsay+Paris" target="_blank" rel="noopener">Map</a><span class="tag">Booked</span><span class="note">Monet, Van Gogh and Renoir in an old train station. Tickets in your phone wallet.</span></span></li>
+    <li class="stop"><span class="time">12:30pm</span><span class="what">Lunch near Île de la Cité<span class="note">20-minute walk along the river, or a short taxi.</span><details class="opts"><summary>3 lunch picks</summary><ul><li><a href="https://www.google.com/maps/search/?api=1&query=Les+Deux+Palais+3+Boulevard+du+Palais+Paris" target="_blank" rel="noopener">Les Deux Palais</a><span>Bright brasserie on the island. Salads and omelettes, serves all day.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Les+Deux+Colombes+Rue+de+la+Colombe+Paris" target="_blank" rel="noopener">Les Deux Colombes</a><span>Classic French on a quiet street just north of Notre-Dame.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=La+Rose+de+France+Place+Dauphine+Paris" target="_blank" rel="noopener">La Rose de France</a><span>Light lunch overlooking leafy Place Dauphine.</span></li></ul></details></span></li>
+    <li class="stop"><span class="time">1:30pm</span><span class="what">Notre-Dame<a class="map" href="https://www.google.com/maps/search/?api=1&query=Notre-Dame+de+Paris" target="_blank" rel="noopener">Map</a><span class="note">Free, walk in. Look for the rose windows.</span></span></li>
+    <li class="stop"><span class="time">2:15pm</span><span class="what">Archaeological crypt<a class="map" href="https://www.google.com/maps/search/?api=1&query=Crypte+arch%C3%A9ologique+de+l%27%C3%AEle+de+la+Cit%C3%A9+Paris" target="_blank" rel="noopener">Map</a><span class="note">Roman and medieval ruins under the square in front. Small fee, usually walk-in.</span></span></li>
+    <li class="stop"><span class="time">3:00pm</span><span class="what">Shakespeare and Company<a class="map" href="https://www.google.com/maps/search/?api=1&query=Shakespeare+and+Company+Paris" target="_blank" rel="noopener">Map</a><span class="note">The famous bookshop across the river, with a café next door for a break.</span></span></li>
+    <li class="stop"><span class="time">3:40pm</span><span class="what">Walk or taxi to the Louvre<span class="note">Stroll through Place Dauphine and over the Pont Neuf.</span></span></li>
+    <li class="stop"><span class="time">4:00pm</span><span class="what">Louvre<a class="map" href="https://www.google.com/maps/search/?api=1&query=Mus%C3%A9e+du+Louvre+Paris" target="_blank" rel="noopener">Map</a><span class="tag">Booked</span><span class="note">Mona Lisa, the Winged Victory, and a few galleries. Dinner after.</span></span></li>
+  </ol>
+</section>
+
+<section class="day c-bcn" id="d24" data-date="2026-10-24">
+  <div class="day-head"><h2>Saturday, October 24</h2><p class="place">Paris to Barcelona</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">~10:30am</span><span class="what">Head to the airport<span class="note">Check whether the flight leaves from Orly or CDG.</span></span></li>
+    <li class="stop"><span class="time">1:35pm</span><span class="what">Vueling 8017 to Barcelona<span class="tag">Booked</span><span class="note">Lands 3:20pm.</span></span></li>
+    <li class="stop"><span class="time">~4:30pm</span><span class="what">Drop bags at the Ramblas Hotel<span class="note">Big luggage isn't allowed inside Sagrada Família.</span></span></li>
+    <li class="stop"><span class="time">~5:30pm</span><span class="what">Sagrada Família<a class="map" href="https://www.google.com/maps/search/?api=1&query=Sagrada+Fam%C3%ADlia+Barcelona" target="_blank" rel="noopener">Map</a><span class="tag todo">To book</span><span class="note">Late-afternoon sun lights up the stained glass. Sunset is around 6:50.</span></span></li>
+    <li class="stop"><span class="time">Evening</span><span class="what">Gothic Quarter tapas dinner<span class="note">La Rambla and the Boqueria market are right by the hotel. Tapas bars fill up after 8:30pm.</span><details class="opts"><summary>3 tapas picks</summary><ul><li><a href="https://www.google.com/maps/search/?api=1&query=Bar+del+Pla+Barcelona" target="_blank" rel="noopener">Bar del Pla</a><span>Sit-down Catalan tapas in El Born. Best fit for the group. Book ahead.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=Bar+La+Plata+Carrer+de+la+Merce+Barcelona" target="_blank" rel="noopener">Bar La Plata</a><span>Tiny bar from 1945 with just a few dishes. Famous fried fish. Mostly standing.</span></li><li><a href="https://www.google.com/maps/search/?api=1&query=El+Xampanyet+Carrer+de+Montcada+Barcelona" target="_blank" rel="noopener">El Xampanyet</a><span>Century-old bar for cava and anchovies. Packed and standing, so go for a quick drink.</span></li></ul></details></span></li>
+  </ol>
+</section>
+
+<section class="day c-sea" id="d25" data-date="2026-10-25">
+  <div class="day-head"><h2>Sunday, October 25</h2><p class="place">Barcelona to the Atlantic</p></div>
+  <ol class="stops">
+    <li class="stop"><span class="time">Morning</span><span class="what">Casa Batlló and Passeig de Gràcia<a class="map" href="https://www.google.com/maps/search/?api=1&query=Casa+Batll%C3%B3+Barcelona" target="_blank" rel="noopener">Map</a><span class="note">Gaudí houses, seen from outside.</span></span></li>
+    <li class="stop ship"><span class="time">Late morning</span><span class="what">Taxi to the cruise port<span class="note">Go by the boarding time on your Royal Caribbean pass. Bon voyage.</span></span></li>
+  </ol>
+</section>
+
+<section class="block" id="bookings">
+  <h2>Bookings</h2>
+  <div class="bookings">
+    <div class="bk c-home">
+      <h3>JetBlue 892 and 1620</h3>
+      <p>Mon Oct 19. Tampa 11:25am to Boston, then Boston 6:30pm to Heathrow, landing 6:30am Tue.</p>
+    </div>
+    <div class="bk c-london">
+      <h3>The July, London Victoria</h3>
+      <p>Nights of Oct 20 and 21.</p>
+    </div>
+    <div class="bk c-london">
+      <h3>Westminster Abbey</h3>
+      <p>Tue Oct 20, entry 1:00–1:30pm. 4 tickets. Print and bring them.</p>
+    </div>
+    <div class="bk c-london">
+      <h3>Tower of London</h3>
+      <p>Wed Oct 21, all day. 4 tickets.</p>
+    </div>
+    <div class="bk c-paris">
+      <h3>Eurostar, London to Paris</h3>
+      <p>Thu Oct 22, 10:30am from St Pancras.</p>
+    </div>
+    <div class="bk c-paris">
+      <h3>Le Parisis, Paris Tour Eiffel</h3>
+      <p>102 Boulevard de Grenelle. Nights of Oct 22 and 23.</p>
+    </div>
+    <div class="bk c-paris">
+      <h3>Musée d'Orsay</h3>
+      <p>Fri Oct 23, 10:00am. 4 tickets.</p>
+    </div>
+    <div class="bk c-paris">
+      <h3>Louvre</h3>
+      <p>Fri Oct 23, 4:00pm. 4 tickets.</p>
+    </div>
+    <div class="bk c-bcn">
+      <h3>Vueling 8017, Paris to Barcelona</h3>
+      <p>Sat Oct 24, 1:35pm, landing 3:20pm.</p>
+    </div>
+    <div class="bk c-bcn">
+      <h3>Ramblas Hotel</h3>
+      <p>Night of Oct 24.</p>
+    </div>
+    <div class="bk c-sea">
+      <h3>Royal Caribbean, Legend of the Seas</h3>
+      <p>Transatlantic, boarding in Barcelona Sun Oct 25.</p>
+    </div>
+  </div>
+</section>
+
+<section class="block" id="tips">
+  <h2>Good to know</h2>
+  <ul class="tips">
+    <li><strong>UK ETA.</strong> Everyone needs their own approved ETA before boarding in Boston. It's linked to your passport, so there's nothing to print.</li>
+    <li><strong>Paying for transit in London.</strong> Tap the same contactless card or phone every time so the daily price cap kicks in. Each person needs their own.</li>
+    <li><strong>Eurostar.</strong> Get to St Pancras about 90 minutes early. Security and French passport control both happen before you board.</li>
+    <li><strong>Tickets.</strong> Abbey tickets are printed. Orsay and Louvre are in your phone wallet. Keep screenshots as a backup.</li>
+    <li><strong>Taxis save legs.</strong> In Paris, a taxi between far-apart stops costs little split four ways and keeps energy up for the museums.</li>
+    <li><strong>Sundays.</strong> The Boqueria market is closed Sunday, so see it Saturday evening.</li>
+  </ul>
+</section>
+
+</main>
+
+<footer>Times are local. Check opening hours on each official site the day before.</footer>
+</div>
+
+<script>
+(function(){
+  try{
+    var d = new Date();
+    var key = d.getFullYear() + "-" + String(d.getMonth()+1).padStart(2,"0") + "-" + String(d.getDate()).padStart(2,"0");
+    var day = document.querySelector('.day[data-date="' + key + '"]');
+    if(!day) return;
+    var h = day.querySelector("h2");
+    var flag = document.createElement("span");
+    flag.className = "today-flag";
+    flag.textContent = "Today";
+    h.appendChild(flag);
+    var pill = document.querySelector('nav.days a[data-date="' + key + '"]');
+    if(pill){ pill.classList.add("is-today"); pill.setAttribute("aria-current","date"); }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
